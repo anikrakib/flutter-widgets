@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_widget/appBar/appbar_with_tab_layout.dart';
 
 void main() {
   runApp(MaterialApp(
-    title: "Awesome App",
+    title: "Flutter Widgets",
     home: HomePage(),
     debugShowCheckedModeBanner: false,
   ));
@@ -11,13 +12,6 @@ void main() {
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Awesome App"),
-      ),
-      body: Container(
-        child: Center(child: Text("Hi Flutter")),
-      ),
-    );
+    return const Scaffold(appBar: null, body: AppbarWithTabLayout());
   }
 }
