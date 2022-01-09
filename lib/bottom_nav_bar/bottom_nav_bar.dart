@@ -22,41 +22,74 @@ class _BottomNavBarState extends State<BottomNavBar> {
     BookarkPage()
   ];
 
+  final PageStorageBucket bucket = PageStorageBucket();
+  Widget currentPage = const HomePage();
+
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          title: const Text('Bottom Navigation Bar'),
+          title: const Text('Bottom Nav Bar with FAB button'),
           centerTitle: true,
         ),
-        body: IndexedStack(index: currentIndex, children: screens),
-        bottomNavigationBar: Container(
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(13)),
-          child: BottomNavigationBar(
-            currentIndex: currentIndex,
-            onTap: (index) => setState(() => currentIndex = index),
-            items: const [
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.home),
-                  label: 'Home',
-                  backgroundColor: Colors.red),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.feed),
-                  label: 'Feed',
-                  backgroundColor: Colors.green),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.chat),
-                  label: 'Chat',
-                  backgroundColor: Colors.amber),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.person),
-                  label: 'Profile',
-                  backgroundColor: Colors.black),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.bookmark),
-                  label: 'Bookmark',
-                  backgroundColor: Colors.red)
-            ],
+        body: PageStorage(
+          child: currentPage,
+          bucket: bucket,
+        ),
+        floatingActionButton: FloatingActionButton(
+          child: const Icon(Icons.search),
+          onPressed: () {},
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        bottomNavigationBar: BottomAppBar(
+          shape: const CircularNotchedRectangle(),
+          notchMargin: 8,
+          child: SizedBox(
+            height: 60,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  bottomNavBarItem(0, Icons.home, 'Home'),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 15),
+                    child: bottomNavBarItem(1, Icons.feed, 'Feed'),
+                  ),
+                  const SizedBox(),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 15),
+                    child: bottomNavBarItem(2, Icons.chat, 'Chat'),
+                  ),
+                  bottomNavBarItem(3, Icons.person, 'profile'),
+                ],
+              ),
+            ),
           ),
         ),
       );
+
+  MaterialButton bottomNavBarItem(int index, IconData icon, String level) {
+    return MaterialButton(
+      minWidth: 60,
+      onPressed: () {
+        setState(() {
+          currentPage = screens[index];
+          currentIndex = index;
+        });
+      },
+      child: Column(
+        children: [
+          Icon(
+            icon,
+            color: currentIndex == index ? Colors.blue : Colors.grey,
+          ),
+          Text(
+            level,
+            style: TextStyle(
+                color: currentIndex == index ? Colors.blue : Colors.grey),
+          )
+        ],
+      ),
+    );
+  }
 }
