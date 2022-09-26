@@ -32,7 +32,7 @@ class _CircularFabMenuState extends State<CircularFabMenu>
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          title: Text('Custom Animation FAB Menu'),
+          title: const Text('Custom Animation FAB Menu'),
           centerTitle: true,
         ),
         floatingActionButton: const CircularFabWidgets(),
@@ -100,7 +100,7 @@ class FlowMenuDelegate extends FlowDelegate {
 
     for (int i = 0; i < n; i++) {
       final isLastItem = i == context.childCount - 1;
-      final setValue = (value) => isLastItem ? 0.0 : value;
+      setValue(value) => isLastItem ? 0.0 : value;
 
       final radius = 120 * (controler.value);
       final theta = i * pi * 0.5 / (n - 2);
