@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_widget/fab_menu/circular_animated_fab_menu.dart';
+import 'package:flutter_widget/widget/expanded_widget.dart';
 
 void main() {
   runApp(const MaterialApp(
@@ -14,6 +14,6 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(appBar: null, body: CircularFabMenu());
+    return const Scaffold(appBar: null, body: ExpandedWidget());
   }
 }
