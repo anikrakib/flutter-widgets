@@ -37,6 +37,8 @@ dependencies:
 
   # Sticky Header Dependencies
   sticky_headers: ^0.3.0+2
+  #Palette Generator package
+  palette_generator: ^0.3.3+2
 
 dev_dependencies:
   flutter_test:
