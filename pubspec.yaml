@@ -37,6 +37,8 @@ dependencies:
 
   # A library for Dart that generates fake data.
   faker: ^2.0.0
+  #A ListView that allows you to group list items and support headers like iOS UITableView section.
+  grouped_list: ^5.1.2
 
 dev_dependencies:
   flutter_test:
