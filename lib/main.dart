@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_widget/widget/list_view_widget.dart';
+import 'package:flutter_widget/widget/list_view_widget_with_sticky_header.dart';
 
 void main() {
   runApp(const MaterialApp(
@@ -14,6 +14,6 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(appBar: null, body: ListViewWidget());
+    return const Scaffold(appBar: null, body: ListViewWidgetWithStickyHeader());
   }
 }
