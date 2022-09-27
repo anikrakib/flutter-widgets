@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:sticky_headers/sticky_headers.dart';
-import 'package:palette_generator/palette_generator.dart';
 
 class ListViewWidgetWithStickyHeader extends StatelessWidget {
   const ListViewWidgetWithStickyHeader({Key? key}) : super(key: key);
@@ -38,11 +37,4 @@ class ListViewWidgetWithStickyHeader extends StatelessWidget {
           ),
         ),
       );
-}
-
-// Calculate dominant color from ImageProvider
-Future<Color> getImagePalette (ImageProvider imageProvider) async {
-  final PaletteGenerator paletteGenerator = await PaletteGenerator
-      .fromImageProvider(imageProvider);
-  return paletteGenerator.dominantColor!.color;
 }
