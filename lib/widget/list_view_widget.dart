@@ -1,5 +1,19 @@
 import 'package:flutter/material.dart';
 
+final List _posts = [
+  '1',
+  '2',
+  '3',
+  '4',
+  '5',
+  '6',
+  '7',
+  '8',
+  '9',
+  '10',
+  '11',
+];
+
 class ListViewWidget extends StatelessWidget {
   const ListViewWidget({Key? key}) : super(key: key);
 
@@ -17,47 +31,28 @@ class ListViewWidget extends StatelessWidget {
               children: [
                 SizedBox(
                   height: 100,
-                  child: ListView(
+                  child: ListView.builder(
+                    shrinkWrap: true,
                     scrollDirection: Axis.horizontal,
-                    children: [
-                      postBody(80, 80,true),
-                      postBody(80, 80,true),
-                      postBody(80, 80,true),
-                      postBody(80, 80,true),
-                      postBody(80, 80,true),
-                      postBody(80, 80,true),
-                      postBody(80, 80,true),
-                      postBody(80, 80,true),
-                      postBody(80, 80,true),
-                      postBody(80, 80,true),
-                      postBody(80, 80,true),
-                      postBody(80, 80,true),
-                      postBody(80, 80,true),
-                      postBody(80, 80,true),
-                    ],
+                    itemCount: _posts.length,
+                    itemBuilder: (context, index) {
+                      return postBody(
+                        80,
+                        80,
+                        true,
+                        _posts[index],
+                      );
+                    },
                   ),
                 ),
-                Column(
-                  children: [
-                    postBody(200, double.infinity,false),
-                    postBody(200, double.infinity,false),
-                    postBody(200, double.infinity,false),
-                    postBody(200, double.infinity,false),
-                    postBody(200, double.infinity,false),
-                    postBody(200, double.infinity,false),
-                    postBody(200, double.infinity,false),
-                    postBody(200, double.infinity,false),
-                    postBody(200, double.infinity,false),
-                    postBody(200, double.infinity,false),
-                    postBody(200, double.infinity,false),
-                    postBody(200, double.infinity,false),
-                    postBody(200, double.infinity,false),
-                    postBody(200, double.infinity,false),
-                    postBody(200, double.infinity,false),
-                    postBody(200, double.infinity,false),
-                    postBody(200, double.infinity,false),
-                  ],
-                )
+                ListView.builder(
+                  shrinkWrap: true,
+                  physics:const NeverScrollableScrollPhysics(),
+                  itemCount: _posts.length,
+                  itemBuilder: (context, index) {
+                    return postBody(250, double.infinity, false, _posts[index]);
+                  },
+                ),
               ],
             ),
           ),
@@ -65,12 +60,13 @@ class ListViewWidget extends StatelessWidget {
       );
 }
 
-Widget postBody(double _height, double _width, bool myday) => Padding(
+Widget postBody(double _height, double _width, bool myDay, String _posts) =>
+    Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
         height: _height,
         width: _width,
-        decoration: myday == true
+        decoration: myDay == true
             ? const BoxDecoration(
                 color: Colors.grey,
                 shape: BoxShape.circle,
@@ -80,17 +76,17 @@ Widget postBody(double _height, double _width, bool myday) => Padding(
               ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
+          children: [
             Text(
-              "My Post",
-              style: TextStyle(
+              myDay == true ? "My Day" : "MyPost",
+              style: const TextStyle(
                 fontSize: 18,
                 color: Colors.white,
               ),
             ),
             Text(
-              "1",
-              style: TextStyle(
+              _posts,
+              style: const TextStyle(
                 fontSize: 18,
                 color: Colors.white,
               ),
