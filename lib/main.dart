@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_widget/widget/gridview_widget.dart';
+import 'package:flutter_widget/widget/staggered_gridview_widget.dart';
 
 void main() {
   runApp(const MaterialApp(
@@ -14,6 +14,6 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(appBar: null, body: GridViewWidget());
+    return const Scaffold(appBar: null, body: StaggeredGridViewWidget());
   }
 }
