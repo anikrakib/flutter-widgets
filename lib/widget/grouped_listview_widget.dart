@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_widget/data/CountryInfo.dart';
 import 'package:flutter_widget/data/continent.dart';
+import 'package:flutter_widget/widget/country_page.dart';
 import 'package:grouped_list/grouped_list.dart';
 
 class GroupedListviewWidget extends StatefulWidget {
@@ -50,7 +52,7 @@ class _GroupedListviewWidgetState extends State<GroupedListviewWidget> {
               ),
               itemBuilder: (context, continents) => Card(
                 elevation: 4,
-                child: countryListTile(continents),
+                child: countryListTile(continents, context),
               ),
             ),
           ),
@@ -58,25 +60,45 @@ class _GroupedListviewWidgetState extends State<GroupedListviewWidget> {
       );
 }
 
-Widget countryListTile(continents) => ListTile(
-      contentPadding: const EdgeInsets.all(12),
-      leading: SizedBox(
-        height: 60,
-        width: 60,
-        child: CircleAvatar(
-          backgroundImage: NetworkImage(continents['countryInfo']['flag']),
+Widget countryListTile(continents, context) => GestureDetector(
+      onTap: () => _goToCountryDetailsPage(continents, context),
+      child: ListTile(
+        contentPadding: const EdgeInsets.all(12),
+        leading: SizedBox(
+          height: 60,
+          width: 60,
+          child: CircleAvatar(
+            backgroundImage: NetworkImage(continents['countryInfo']['flag']),
+          ),
         ),
-      ),
-      title: Text(
-        continents['country'],
-        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-      ),
-      subtitle: Text(
-        'Lat: ${continents['countryInfo']['lat']} & Long: ${continents['countryInfo']['long']}',
-        style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+        title: Text(
+          continents['country'],
+          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
+        subtitle: Text(
+          'Lat: ${continents['countryInfo']['lat']} & Long: ${continents['countryInfo']['long']}',
+          style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+        ),
       ),
     );
 
 void print(Object object) {
   debugPrint(object.toString());
+}
+
+void _goToCountryDetailsPage(continents, context) {
+  CountryInfo countryInfo = CountryInfo(
+    flag: continents['countryInfo']['flag'],
+    iso2: continents['countryInfo']['iso2'],
+    name: continents['country'],
+    iso3: continents['countryInfo']['iso3'],
+    lat: continents['countryInfo']['lat'] == null
+        ? 0.0
+        : continents['countryInfo']['lat'].toDouble(),
+    long: continents['countryInfo']['long'] == null
+        ? 0.0
+        : continents['countryInfo']['long'].toDouble(),
+  );
+  Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => CountryPage(countryInfo: countryInfo)));
 }
