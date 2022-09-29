@@ -3,5 +3,7 @@ class Assets {
   Assets._();
 
   static const String assetsRulerMarker = 'assets/ruler_marker.svg';
+  static const String assetsSliderThumbImage = 'assets/slider_thumb_image.png';
+  static const String flutterWidgetAssetsSliderThumbImage = 'assets/slider_thumb_image.svg';
 
 }
