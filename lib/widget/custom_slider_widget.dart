@@ -1,152 +1,47 @@
-import 'package:custom_slider/custom_slider.dart';
+import 'dart:math';
+import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_widget/model/data.dart';
+import 'package:flutter_widget/widget/component/add_item_custom_list_tile.dart';
+import 'package:flutter_widget/widget/component/post_item_custom_list_tile.dart';
+import 'package:flutter_widget/widget/component/suggest_user_custom_list.dart';
+import '../model/view_type.dart';
 
-class CustomSliderWidget extends StatefulWidget {
-  const CustomSliderWidget({Key? key}) : super(key: key);
+final List<ListItem> items = postList;
+final faker = Faker();
+final random = Random();
 
-  @override
-  State<CustomSliderWidget> createState() => _CustomSliderWidgetState();
-}
-
-class _CustomSliderWidgetState extends State<CustomSliderWidget> {
-  double _value = 0.0;
-
-  void _setValue(double value) => setState(() => _value = value);
+class ListViewWithMultipleViews extends StatelessWidget {
+  const ListViewWithMultipleViews({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Custom Slider"),
+        title: const Text("List View With Multiple View"),
         centerTitle: true,
         backgroundColor: Colors.black,
       ),
-      body: Column(
-        children: [
-          const Padding(
-            padding: EdgeInsets.only(top: 8.0),
-            child: Text(
-              'Slider Using Package',
-              style: TextStyle(fontSize: 18),
-            ),
-          ),
-          const Padding(
-            padding: EdgeInsets.all(20.0),
-            child: CustomSlider(
-              assetImage: 'assets/slider_thumb_image.png',
-              inActiveTrackColor: Color(0xFF5AE4A7),
-              linearGradient: LinearGradient(
-                  colors: [Color(0xFF5AE4A7), Color(0xFF5AE4A7)]),
-              trackHeight: 9,
-              max: 100.0,
-              min: 0.0,
-              assetImageHeight: 21,
-              assetImageWidth: 21,
-            ),
-          ),
-          const Padding(
-            padding: EdgeInsets.only(top: 8.0),
-            child: Text(
-              'Slider Using Custom Shape',
-              style: TextStyle(fontSize: 18),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(20),
-            child: SliderTheme(
-              data: const SliderThemeData(
-                activeTrackColor: Color(0xFF5AE4A7),
-                inactiveTrackColor: Color(0xFF5AE4A7),
-                trackHeight: 9,
-                thumbShape: SliderThumbShape(disabledThumbRadius: 0),
-              ),
-              child: Slider(
-                onChanged: _setValue,
-                value: _value,
-                max: 100,
-                min: 0,
-              ),
-            ),
-          ),
-          Text(
-            _value.toString(),
-          ),
-        ],
+      body: Container(
+        color: Colors.black,
+        child: ListView.builder(
+          physics: const BouncingScrollPhysics(),
+          itemCount: items.length,
+          itemBuilder: (context, index) {
+            final item = items[index];
+            if (item is AddItem) {
+              return AddItemWidget(item: item);
+            } else if (item is PostItem) {
+              return PostItemWidget(postItem: item);
+            } else if (item is SuggestUser) {
+              return SuggestUserWidget(suggestUser: item.users);
+            }
+            return const ListTile(
+              title: Text('Cant Find Anything'),
+            );
+          },
+        ),
       ),
     );
-  }
-}
-
-class SliderThumbShape extends SliderComponentShape {
-  /// Create a slider thumb that draws a circle.
-
-  const SliderThumbShape({
-    this.enabledThumbRadius = 9.0,
-    required this.disabledThumbRadius,
-    this.elevation = 1.0,
-    this.pressedElevation = 6.0,
-  });
-
-  final double enabledThumbRadius;
-
-  final double disabledThumbRadius;
-
-  double get _disabledThumbRadius => disabledThumbRadius;
-
-  final double elevation;
-
-  final double pressedElevation;
-
-  @override
-  Size getPreferredSize(bool isEnabled, bool isDiscrete) {
-    return Size.fromRadius(
-        isEnabled == true ? enabledThumbRadius : _disabledThumbRadius);
-  }
-
-  @override
-  void paint(
-    PaintingContext context,
-    Offset center, {
-    Animation<double>? activationAnimation,
-    required Animation<double> enableAnimation,
-    bool? isDiscrete,
-    TextPainter? labelPainter,
-    RenderBox? parentBox,
-    required SliderThemeData sliderTheme,
-    TextDirection? textDirection,
-    double? value,
-    double? textScaleFactor,
-    Size? sizeWithOverflow,
-  }) {
-    assert(sliderTheme.disabledThumbColor != null);
-    assert(sliderTheme.thumbColor != null);
-    assert(!sizeWithOverflow!.isEmpty);
-
-    final Canvas canvas = context.canvas;
-    final Tween<double> radiusTween = Tween<double>(
-      begin: _disabledThumbRadius,
-      end: enabledThumbRadius,
-    );
-
-    final double radius = radiusTween.evaluate(enableAnimation);
-
-    {
-      Paint paintStroke = Paint()
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = 5;
-      paintStroke.color = const Color(0xff313131).withOpacity(1.0);
-      canvas.drawCircle(
-        center,
-        radius,
-        paintStroke,
-      );
-      Paint paintFillCircle = Paint()..style = PaintingStyle.fill;
-      paintFillCircle.color = const Color(0xffD4F7E5).withOpacity(1.0);
-      canvas.drawCircle(
-        center,
-        radius,
-        paintFillCircle,
-      );
-    }
   }
 }

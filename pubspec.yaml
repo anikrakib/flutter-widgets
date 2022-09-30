@@ -37,12 +37,9 @@ dependencies:
 
   # A library for Dart that generates fake data.
   faker: ^2.0.0
-  #A Library for Ruler picker
-  flutter_ruler_picker: ^1.0.2
-  #Draw SVG (and some Android VectorDrawable (XML)) files on a Flutter Widget.
-  flutter_svg: ^1.1.5
-  #Custom Slider package lets you add a beautiful slider Track gradient and Image on SliderThumb to your Flutter app.
-  custom_slider: ^0.0.3
+  #A Flutter package to extract prominent colors from an Image, typically used to find colors for a user interface.
+  palette_generator: ^0.3.3+2
+
 
 dev_dependencies:
   flutter_test:
@@ -67,8 +64,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  assets:
-    - assets/
+#  assets:
+#    - assets/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
